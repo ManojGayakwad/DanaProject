@@ -6,6 +6,7 @@ import axios from 'axios'
 export const PostObsdata = createAsyncThunk('obs/post',
     async (data) => {
     await axios.post('/api/createobs',{data})
+    // console.log(data.length);
     })
 
 // delete data
@@ -20,14 +21,19 @@ export const ObsDataDelete = createAsyncThunk('obs/delete',
 
 export const GetObsData = createAsyncThunk('/getuser/get', async () => {
   const { data } = await axios.get('/api/getobs')
+  
   console.log(data)
+  // console.log(GetObsData.data.length)
   return data
 })
 
 //  Get data by id
 
 export const GetObsByid = createAsyncThunk('getobsid',
-    async (id) => { await axios.get('/api/getobs',{id}) }
+    async (id) => { await axios.get('/api/getobs',{id})
+    
+  }
+    
 )
 
 // patch request for observation

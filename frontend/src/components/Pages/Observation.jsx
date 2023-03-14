@@ -179,10 +179,10 @@ const Observation = () => {
       <div
         style={{
           alignContent: "left",
-          width: "80%",
+          width: "75%",
           position: "relative",
           top: "150px",
-          left: "300px",
+          left: "260px",
         }}
       >
         <CustomizedDialogs />

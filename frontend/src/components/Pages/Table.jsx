@@ -61,7 +61,13 @@ BootstrapDialogTitle.propTypes = {
 
 const Table = () => {
 
+
+    const [length, setLength] = useState(data && data[0] && data[0].observations ? data[0].observations.length : 0);
+
+ 
+
     // const [data, setData] = useState([])
+    // const [observations,setObservations]=useState([]);
     const [dataId, setDataid] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [Product, setProduct] = useState("");
@@ -76,6 +82,7 @@ const Table = () => {
     const [openAL, setopenAL] = useState(false)
     const [checkedItems, setCheckedItems] = useState("");
 
+    // const [totalCount, setTotalCount] = useState(0);
     const dispatch = useDispatch();
 
     const { loading, data, skipCount } = useSelector(
@@ -129,9 +136,21 @@ const Table = () => {
     }, []);
 
 
+    useEffect(() => {
+        setLength(data && data[0] && data[0].observations ? data[0].observations.length : 0);
+      }, [data]);
+    
+    // const len = async () => {
+    //     dispatch(GetObsData().length)
+    // };
+
+    // useEffect(() => {
+    //     setTotalCount(len());
+    // }, []);
+
     const handleDelete = (id) => {
         dispatch(ObsDataDelete(id))
-        window.location.href = "/observations"
+        window.location.href = "/Observation"
 
     };
     const getObsid = async (id, Product, PartNo, ProcessStage, Problem, Issue, Rootcause, ReworkHrs) => {
@@ -147,7 +166,7 @@ const Table = () => {
     }
     const updateObs = (_id, Product, PartNo, ProcessStage, Problem, Issue, Rootcause, ReworkHrs) => {
         dispatch(UpdateObs({ id: _id, Product, PartNo, ProcessStage, Problem, Issue, Rootcause, ReworkHrs }))
-        window.location.href = "/observations"
+        window.location.href = "/Observation"
     }
 
     const getidforsumbit = async (id, Product, PartNo, ProcessStage, Problem, Issue, Rootcause, ReworkHrs) => {
@@ -161,22 +180,42 @@ const Table = () => {
         setReworkHrs(ReworkHrs)
         handleopenfinalAlert()
     }
-
+ 
+    // const idCount = uitem.length;
+    // const idCount =GetObsData(data).length;
 
     const submitObs = (Product, PartNo, Issue, Problem, ProcessStage, Rootcause, ReworkHrs) => {
         let uitem = { Product, PartNo, Issue, Problem, ProcessStage, Rootcause, ReworkHrs }
         dispatch(Postobsfinaldata(uitem))
+        // idCount = uitem.length;
         handleclosefinalAlert()
     }
+    
+
     if (loading) {
         return <div>Loading..</div>;
     }
     if (data.length == 0) {
-        window.location.href = "/observations"
+        window.location.href = "/Observation"
     }
     else {
         return (
             <div>
+                {/* {data[0].observations.map(() => {
+                     const [length, setLength] = useState(data && data[0] && data[0].observations ? data[0].observations.length : 0);
+
+                     useEffect(() => {
+                       setLength(data && data[0] && data[0].observations ? data[0].observations.length : 0);
+                     }, [data]); */}
+                    {/* return (
+                        <div>
+                            <p>The length of the observations array is {length}</p>
+                        </div>
+                    );
+                    
+                })} */}
+                
+                {/* <p>The length of the observations array is {length}</p> */}
 
                 <BootstrapDialog
                     onClose={handleClose}
@@ -253,7 +292,7 @@ const Table = () => {
                 </BootstrapDialog>
 
 
-
+                {/* <p>The length of the observations array is {data[0]?.observations?.length || 0}</p> */}
 
                 {/* ================================================================================================================================== */}
 
@@ -292,7 +331,7 @@ const Table = () => {
                         </thead>
 
                         <tbody>
-                            {data[0].observations.map((res, index) => (
+                            {data[0] && data[0].observations && data[0].observations.map((res, index) => (
                                 <React.Fragment key={res._id}>
                                     <tr>
                                         {/* <td><input type="checkbox" name={res._id} onChange={handleChange}/></td> */}
@@ -308,6 +347,7 @@ const Table = () => {
                                         {/* <td><EditIcon  variant="contained" onClick={() => getObsid(item._id)}/></td> */}
                                         {/* <td><Button color="error" variant="contained" onClick={() => handleDelete()}>Delete</Button></td> */}
                                         {/* <td><DoneAllIcon color="success" variant="contained" onClick={() => getidforsumbit(item._id)}>Submit</DoneAllIcon></td> */}
+                                        {/* <p>The length of the observations array is {data && data[0] && data[0].observations ? data[0].observations.length : 0}</p> */}
 
                                         <div style={{ display: 'flex' }}>
                                             <IconButton aria-label="edit" size="large" onClick={(e) => { getObsid(res._id, res.Product, res.PartNo, res.ProcessStage, res.Problem, res.Issue, res.Rootcause, res.ReworkHrs) }}>

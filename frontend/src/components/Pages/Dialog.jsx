@@ -104,6 +104,7 @@ export default function CustomizedDialogs() {
         ReworkHrs: ""
     })
 
+     
     let name, value;
     const handleInputs = (e) => {
         name = e.target.name;
@@ -128,7 +129,7 @@ export default function CustomizedDialogs() {
         handleClose()
         // wrongreload()
         handleClick()
-        window.location.href = "/observations"
+        window.location.href = "/Observation"
 
     }
 

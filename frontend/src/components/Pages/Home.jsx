@@ -1,4 +1,13 @@
-import React from "react";
+// import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetObsData, ObsDataDelete, UpdateObs } from '../../services/obsServices';
+// import { GetAllNcrData, NcrDataDelete, UpdateNcr } from "../../services/ncrServices";
+// import { PostTaskData } from "../../services/taskService";
+// import { PostTaskDataObject } from "../../services/TaskObjectServices";
+// import { PostNcrModify } from "../../services/ncrmodifyservices";
+// import { GetAllNcrOptionsData2 } from "../../services/ncroptionServices";
+import NcrTotal from "./Ncrtotal";
 import IconButton from "@mui/material/IconButton";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,7 +23,64 @@ import MailIcon from "@mui/icons-material/Mail";
 import { Avatar } from "@mui/material";
 import Dashboard from "../User/Dashboard";
 
+
+
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  card: {
+    maxWidth: 500, // set maximum width for the card
+    // maxHeight:500,
+    width: '25%', // set width to 100% so that it takes up full width of the container
+    height: '185px',
+    // margin: 'auto', // center the card horizontally
+    // marginTop: '-180px',
+    marginTop: '120px',
+    marginLeft: '20px'
+  },
+  Secondcard: {
+
+    maxWidth: 500, // set maximum width for the card
+    width: '35%', // set width to 100% so that it takes up full width of the container
+    height: '185px',
+    // margin: 'auto', // center the card horizontally
+    marginTop: '-183px',
+    marginLeft: '300px'
+  },
+  Thirdcard: {
+    maxWidth: 500, // set maximum width for the card
+    width: '30%', // set width to 100% so that it takes up full width of the container
+    height: '185px',
+    // margin: 'auto', // center the card horizontally
+    marginTop: '-184px',
+    marginLeft: '685px'
+  },
+
+  DivCard: {
+    marginTop: '-4rem'
+  },
+
+
+  content: {
+    overflowWrap: 'break-word', // break long words to fit within the card
+    textAlign: 'center'
+  },
+});
+
+
 const Home = () => {
+
+  // const [length, setLength] = useState(data && data[0] && data[0].observations ? data[0].observations.length : 0);
+  //  const [ncrlength, setncrLength] = useState(data && data[0] && data[0].ncr ? data[0].ncr.length : 0);
+
+  const [length, setLength] = useState(() => {
+    const storedLength = localStorage.getItem('length');
+    return storedLength ? parseInt(storedLength) : data && data[0] && data[0].observations ? data[0].observations.length : 0;
+  });
+
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -41,6 +107,36 @@ const Home = () => {
   };
 
   const menuId = "primary-search-account-menu";
+  const classes = useStyles();
+
+  const { loading, data, skipCount } = useSelector(
+    (state) => state.obsReducer
+  );
+
+  // useEffect(() => {
+  //   setLength(data && data[0] && data[0].observations ? data[0].observations.length : 0);
+  // }, [data]);
+
+  useEffect(() => {
+    if (data && data[0] && data[0].observations) {
+      const newLength = data[0].observations.length;
+      setLength(newLength);
+      localStorage.setItem('length', newLength);
+    }
+  }, [data]);
+
+  
+
+  // useEffect(() => {
+  //   setncrLength(data && data[0] && data[0].ncr ? data[0].ncr.length : 0);
+  // }, [data]);
+
+
+  // useEffect(() => {
+  //   if (!window.performance.navigation.type) { // check if page is refreshed
+  //     setLength(0);
+  //   }
+  // }, []);
 
   const renderMenu = (
     <Menu
@@ -173,8 +269,46 @@ const Home = () => {
                 {renderMenu}
             </Box>
             */}
-
-      <h1 style={{ marginTop: "100px" }}>Home</h1>
+      <div >
+        <Card className={classes.card} >
+          <CardContent className={classes.content} >
+            <p1 style={{ fontWeight: 'bold' }}>Total NCR</p1>
+            <NcrTotal />
+          </CardContent>
+        </Card>
+        <Card className={classes.Secondcard}>
+          <CardContent className={classes.content} >
+            <p1 style={{ fontWeight: 'bold' }}>Total NCR in Progress</p1>
+            <h1 style={{ marginTop: '40px' }}>0</h1>
+          </CardContent>
+        </Card>
+        <Card className={classes.Thirdcard}>
+          <CardContent className={classes.content}>
+            <p1 style={{ fontWeight: 'bold' }}>NCR Completed</p1>
+            <h1 style={{ marginTop: '40px' }}>0</h1>
+          </CardContent>
+        </Card>
+      </div>
+      <div className={classes.DivCard}>
+        <Card className={classes.card} >
+          <CardContent className={classes.content} >
+            <p1 style={{ fontWeight: 'bold' }}>Total Observations</p1>
+            <h1 style={{ marginTop: '40px' }}>{length}</h1>
+          </CardContent>
+        </Card>
+        <Card className={classes.Secondcard}>
+          <CardContent className={classes.content} >
+            <p1 style={{ fontWeight: 'bold' }}>Total Observations in Progress</p1>
+            <h1 style={{ marginTop: '40px' }}>0</h1>
+          </CardContent>
+        </Card>
+        <Card className={classes.Thirdcard}>
+          <CardContent className={classes.content}>
+            <p1 style={{ fontWeight: 'bold' }}>Observations Completed</p1>
+            <h1 style={{ marginTop: '40px' }}>0</h1>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

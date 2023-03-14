@@ -125,7 +125,7 @@ const Ncr = () => {
         dispatch(PostNcrdata(Ncr))
         console.log(Ncr)
 
-        // window.location.href = "/createncr"
+        window.location.href = "/NCR"
     }
 
     useEffect(() => {

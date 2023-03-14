@@ -61,9 +61,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   appBar: {
+    backgroundColor: '#1c85c9',
     marginLeft: drawerWidth,
     [theme.breakpoints.up("sm")]: {
-      width: `calc(103% - ${drawerWidth}px)`,
+      width: `calc(100% - ${drawerWidth}px)`,
       // transition: theme.transitions.create(["margin", "width"], {
       //   easing: theme.transitions.easing.sharp,
       //   duration: theme.transitions.duration.leavingScreen
@@ -92,10 +93,11 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    overflow: "hidden",
+   
   },
   drawerPaper: {
     width: drawerWidth,
+    overflow: "hidden",
   },
   nested: {
     paddingLeft: theme.spacing(4),
@@ -198,7 +200,7 @@ function NavigationBar() {
   const getList = (data) => {
     return (
       <div
-        style={{ width: 300, marginTop: "100px" }}
+        style={{ width: 300, marginTop: "30px" }}
         // onClick={() => setOpen(false)}
       >
         {data.map((item, index) => {
@@ -263,7 +265,8 @@ function NavigationBar() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
+      
       <Drawer
         sx={{
           width: drawerWidth,
@@ -281,23 +284,23 @@ function NavigationBar() {
           paper: classes.drawerPaper,
         }}
       >
+        <img src={logo} alt="logo" />
+        <hr style={{marginTop:'-2px'}}></hr>
         <List>{getList(data)}</List>
       </Drawer>
 
       <Divider />
-      <AppBar style={{ height: "90px" }}>
+      <AppBar style={{ height: "90px", backgroundColor: '#1c85c9'}}>
         <Toolbar style={{ marginLeft: "200px" }}>
           <Avatar src="/profile.png" />
           <Typography
             variant="h6"
-            sx={{ color: "text.white", fontWeight: "600", marginLeft: "10px" }}
+            sx={{ color: "text.white", fontWeight: "600", marginLeft: "45px", position:'fixed' }}
           >
-            {localStorage.getItem("fname") +
-              " " +
-              localStorage.getItem("lname")}
+          {localStorage.getItem("fname") + " " +localStorage.getItem("lname")}
           </Typography>
           {/* Logo */}
-          <img src={logo} alt="logo" />
+          {/* <img src={logo} alt="logo" /> */}
           <Hidden xsDown>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>

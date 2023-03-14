@@ -333,7 +333,7 @@ const ManageUser = () => {
                 alignItems: "left",
                 justifyContent: "left",
                 marginTop: "150px",
-                marginLeft: "290px",
+                marginLeft: "260px",
               }}
             >
               <Button
@@ -354,6 +354,7 @@ const ManageUser = () => {
               alignContent: "left",
               width: "70%",
               position: "relative",
+              marginLeft:"260px"
             }}
           >
             <tr>
@@ -370,7 +371,7 @@ const ManageUser = () => {
                 ""
               )}
             </tr>
-            {data[0].data.map((res) => (
+            {data[0] && data[0].data && data[0].data.map((res) => (
               <React.Fragment key={res._id}>
                 <tr>
                   <td>{res.fname}</td>

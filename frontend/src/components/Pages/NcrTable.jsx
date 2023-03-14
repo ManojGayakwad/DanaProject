@@ -34,6 +34,8 @@ import Divider from "@mui/material/Divider";
 const NcrTable = () => {
   // const [data, setData] = useState([]);
 
+  const [ncrlength, setncrLength] = useState(data && data[0] && data[0].ncr ? data[0].ncr.length : 0);
+
   const dispatch = useDispatch();
   const [dataId, setDataid] = useState([]);
   const [Id, setId] = useState("");
@@ -91,6 +93,10 @@ const NcrTable = () => {
     getadNCR();
   }, []);
 
+  useEffect(() => {
+    setncrLength(data && data[0] && data[0].ncr ? data[0].ncr.length : 0);
+  }, [data]);
+
   const handleClose = () => {
     setOpen(false);
     setOpenNCR(false);
@@ -105,7 +111,7 @@ const NcrTable = () => {
 
   const handleDelete = (id) => {
     dispatch(NcrDataDelete(id));
-    // window.location.href = "/createncr"
+    window.location.href = "/NCR"
   };
   const getncriddetails = (
     _id,
@@ -412,6 +418,8 @@ const NcrTable = () => {
   } else
     return (
       <div>
+        {/* <p>The length of the observations array is {ncrlength}</p> */}
+
         <Dialog
           open={open}
           onClose={handleClose}
@@ -621,7 +629,7 @@ const NcrTable = () => {
                           <option>Select</option>
                           {data1[0].resolutionowner.map((item) =>
                             localStorage.getItem("username") ===
-                            item.username ? (
+                              item.username ? (
                               ""
                             ) : (
                               <option value={item.name + " " + item.username}>
@@ -650,7 +658,7 @@ const NcrTable = () => {
                           <option>Select</option>
                           {data2[0].validator.map((item) =>
                             localStorage.getItem("username") ===
-                            item.username ? (
+                              item.username ? (
                               ""
                             ) : (
                               <option value={item.name + " " + item.username}>
@@ -679,7 +687,7 @@ const NcrTable = () => {
                           <option>Select</option>
                           {data3[0].approver.map((item) =>
                             localStorage.getItem("username") ===
-                            item.username ? (
+                              item.username ? (
                               ""
                             ) : (
                               <option value={item.name + " " + item.username}>

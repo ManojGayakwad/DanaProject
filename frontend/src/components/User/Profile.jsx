@@ -59,7 +59,7 @@ const Profile = () => {
   if (data.length == 0) {
     window.location.href = "/profile";
   } else {
-    data[0].data.map((res) => {
+    data[0].data && data[0].data.map((res) => {
       let v1 = res.fname;
       list.push(v1);
       let v2 = res.username;
@@ -81,7 +81,7 @@ const Profile = () => {
     });
     return (
       <div>
-        <Card sx={{ maxWidth: 880, marginTop: "10rem", marginLeft: "20rem" }}>
+        <Card sx={{ maxWidth: 880, marginTop: "8rem", marginLeft: "20rem" }}>
           <CardContent sx={{ padding: "50px" }}>
             <Typography gutterBottom variant="h5" component="div">
               General information

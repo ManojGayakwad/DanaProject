@@ -208,6 +208,7 @@ const Task = () => {
               width: "70%",
               position: "relative",
               top: "150px",
+              marginLeft:"250px"
             }}
           >
             <tr>
@@ -218,7 +219,7 @@ const Task = () => {
               <th>Created on</th>
               <th>Assigned Date</th>
             </tr>
-            {data[0].data.map((res, index) => (
+            {data[0] && data[0].data.map((res, index) => (
               <React.Fragment key={res._id}>
                 {/* {res.CreatorId===localStorage.getItem("username")} */}
                 <tr>
